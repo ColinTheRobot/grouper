@@ -17,6 +17,7 @@ class DataParser
    sanitized_students = sanitize_values(
       SmarterCSV.process(file_name, key_mapping: header_map)
     )
+
    build_student_objects(sanitized_students)
 
   end

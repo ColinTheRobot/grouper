@@ -14,6 +14,7 @@ class TimeSlot
 
   def add_student(student, availability)
     raise MaxCapacity if at_max_student_capacity?
+
     # raise StudentAlreadyAllocated if student.allocated?
 
     # tell studen object they've been added.
@@ -21,24 +22,23 @@ class TimeSlot
 
     if availability == :maybe
       @maybe_students << student
-    else
+    elsif availability == true
       @definite_students << student
       student.allocated = true
     end
   end
 
   def toggle_time_slot_active
-    time_slot_active = !time_slot_active
+    @time_slot_active = !@time_slot_active
   end
 
   def at_max_student_capacity?
-    definite_students.count == MAX_NUMBER_OF_STUDENTS ? true : false
+    definite_students.count == MAX_NUMBER_OF_STUDENTS
   end
 
   def below_min_student_capacity?
-    definite_students.count <= MIN_NUMBER_OF_STUDENTS ? true : false
+    definite_students.count <= MIN_NUMBER_OF_STUDENTS
   end
-
 end
 
 class MaxCapacity < StandardError
